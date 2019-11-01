@@ -1,32 +1,37 @@
 import React, { Component } from 'react';
 import Photo from './Photo'
 let canvasWidth = null, canvasHeight = null;
-
-var isMoblie = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-if (isMoblie) {
-  canvasWidth = window.innerWidth;
-  canvasHeight = canvasWidth * 4/3;
-}
-else {
-  canvasWidth = window.innerWidth * 0.35;
-  canvasHeight = canvasWidth * 0.5625;
-}
-
-let imageWidth = canvasWidth
-let imageHeight = canvasHeight
+let imageWidth = 0
+let imageHeight = 0
 let dx = 0
 let dy = 0
 let scale = 1
+
+function init (){
+  if (window.isMobile) {
+    canvasWidth = window.innerWidth;
+    canvasHeight = canvasWidth * 4 / 3;
+    alert('手機模式')
+  }
+  else {
+    canvasWidth = window.innerWidth * 0.49;
+    canvasHeight = canvasWidth * 0.5625;
+  }
+   imageWidth = canvasWidth
+   imageHeight = canvasHeight
+}
 
 class Video extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imgSrc: ''
+      imgSrc: '',
+
     };
   }
 
   componentDidMount() {
+    init ();
     this.videoCanvas = document.getElementById('videoCanvas');
     this.video = document.getElementById('video');
     this.videoCanvas.width = canvasWidth;
@@ -108,13 +113,20 @@ class Video extends Component {
     this.photoCanvas.width = canvasWidth
     this.photoCanvas.height = canvasHeight
     this.setState({ imgSrc: this.videoCanvas.toDataURL() }, () => { this.drawPhoto() });
+    document.getElementById('savePhoto').style = { display: '' };
   }
 
   drawPhoto = () => {
     const ctx = this.photoCanvas.getContext('2d');
     let img = new Image()
     img.onload = () => {
-      ctx.drawImage(img, 0, 0);
+      if (scale >= 1)
+        ctx.drawImage(img, 0, 0);
+      else {
+        this.photoCanvas.width = canvasWidth * scale;
+        this.photoCanvas.height = canvasHeight * scale;
+        ctx.drawImage(img, -dx, -dy);
+      }
     }
     img.src = this.state.imgSrc;
   }
@@ -128,14 +140,14 @@ class Video extends Component {
 
   render() {
     return (
-      <div>
+      <div align="center">
         <video autoPlay={true} id="video" style={{ display: 'none' }} />
-        <canvas id="videoCanvas" className='Stream' /><br />
+        <canvas id="videoCanvas" style={this.props.videoCanvasStyle} className='Stream' /><br />
         <input type="range" min="0.5" max="1.5" step="0.1" defaultValue="1" id="slider" className="slider"
           style={{ width: canvasWidth - 10, height: '1rem' }} /><br />
         <button id='turn' onClick={this.handleTurnStream}>turn Off</button>
         <button onClick={this.takePhoto}>take photo</button>
-        <button id='savePhoto' onClick={this.downloadCanvasIamge}>save photo</button>
+        <button id='savePhoto' style={{ display: 'none' }} onClick={this.downloadCanvasIamge}>save photo</button>
         <a id='downloadImg'></a>
         <Photo />
       </div>
