@@ -5,7 +5,7 @@ let canvasWidth = null, canvasHeight = null;
 var isMoblie = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 if (isMoblie) {
   canvasWidth = window.innerWidth;
-  canvasHeight = canvasWidth * 1.77;
+  canvasHeight = canvasWidth * 4/3;
 }
 else {
   canvasWidth = window.innerWidth * 0.35;
