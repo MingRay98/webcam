@@ -82,7 +82,6 @@ class App extends Component {
       <div >
         <Header handleCameraChange={this.handleCameraChange} />
         {this.desktopList()}
-        <button onClick={this.testfun}>123</button>
       </div>
     );
   }
