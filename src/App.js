@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       //增加constrans 來改
       constraints: {
-        video: { facingMode: "user" },
+        video: { facingMode: { exact: "environment" } },
         audio: false
       },
     };
@@ -23,11 +23,11 @@ class App extends Component {
     if (isMoblie)
       if (facing === 'user') {
         facing = 'environment'
-        this.setState({ constraints: { audio: true, video: { facingMode: { exact: "environment" } } } })
+        this.setState({ constraints: { audio: false, video: { facingMode: { exact: "environment" } } } })
       }
       else {
         facing = 'user'
-        this.setState({ constraints: { audio: true, video: { facingMode: "user" } } })
+        this.setState({ constraints: { audio: false, video: { facingMode: "user" } } })
       }
     else
       console.log('Isn\'t molibe ');
