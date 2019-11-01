@@ -5,7 +5,7 @@ let canvasWidth = null, canvasHeight = null;
 var isMoblie = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 if (isMoblie) {
   canvasWidth = window.innerWidth;
-  canvasHeight = canvasWidth * 0.7;
+  canvasHeight = canvasWidth * 1.77;
 }
 else {
   canvasWidth = window.innerWidth * 0.35;
@@ -133,7 +133,7 @@ class Video extends Component {
         <canvas id="videoCanvas" className='Stream' /><br />
         <input type="range" min="0.5" max="1.5" step="0.1" defaultValue="1" id="slider" className="slider"
           style={{ width: canvasWidth - 10, height: '1rem' }} /><br />
-        <button onClick={this.handleTurnStream}>turn Off</button>
+        <button id='turn' onClick={this.handleTurnStream}>turn Off</button>
         <button onClick={this.takePhoto}>take photo</button>
         <button id='savePhoto' onClick={this.downloadCanvasIamge}>save photo</button>
         <a id='downloadImg'></a>
