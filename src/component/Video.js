@@ -7,18 +7,18 @@ let dx = 0
 let dy = 0
 let scale = 1
 
-function init (){
+function init() {
   if (window.isMobile) {
     canvasWidth = window.innerWidth;
     canvasHeight = canvasWidth * 4 / 3;
-    alert('手機模式')
+    alert('Mobile Mode')
   }
   else {
     canvasWidth = window.innerWidth * 0.49;
     canvasHeight = canvasWidth * 0.5625;
   }
-   imageWidth = canvasWidth
-   imageHeight = canvasHeight
+  imageWidth = canvasWidth
+  imageHeight = canvasHeight
 }
 
 class Video extends Component {
@@ -31,7 +31,7 @@ class Video extends Component {
   }
 
   componentDidMount() {
-    init ();
+    init();
     this.videoCanvas = document.getElementById('videoCanvas');
     this.video = document.getElementById('video');
     this.videoCanvas.width = canvasWidth;
@@ -42,12 +42,14 @@ class Video extends Component {
     this.photoCanvas = document.getElementById('photoCanvas');
 
     this.slider = document.getElementById('slider');
-    this.slider.addEventListener('mousedown', this.startSlide, false);
-    this.slider.addEventListener('mouseup', this.stopSlide, false);
+    // this.slider.addEventListener('mousedown', this.startSlide, false);
+    // this.slider.addEventListener('mouseup', this.stopSlide, false);
     this.slider.addEventListener('touchstart', this.startSlide, false);
     this.slider.addEventListener('touchend', this.stopSlide, false);
 
   }
+
+
 
   startSlide = (e) => {
     this.slider.addEventListener('mousemove', this.moveSlide, false);
@@ -120,8 +122,10 @@ class Video extends Component {
     const ctx = this.photoCanvas.getContext('2d');
     let img = new Image()
     img.onload = () => {
-      if (scale >= 1)
+      if (scale >= 1) {
+        ctx.filter = this.props.filterStyle.blur + " " + this.props.filterStyle.grayscale + " " + this.props.filterStyle.brightness + " " + this.props.filterStyle.contrast;
         ctx.drawImage(img, 0, 0);
+      }
       else {
         this.photoCanvas.width = canvasWidth * scale;
         this.photoCanvas.height = canvasHeight * scale;
@@ -139,17 +143,20 @@ class Video extends Component {
   }
 
   render() {
+
+    const filterStyle = { filter: this.props.filterStyle.blur + " " + this.props.filterStyle.grayscale + " " + this.props.filterStyle.brightness + " " + this.props.filterStyle.contrast };
+
     return (
       <div align="center">
         <video autoPlay={true} id="video" style={{ display: 'none' }} />
-        <canvas id="videoCanvas" style={this.props.videoCanvasStyle} className='Stream' /><br />
+        <canvas id="videoCanvas" style={filterStyle} className='Stream' /><br />
         <input type="range" min="0.5" max="1.5" step="0.1" defaultValue="1" id="slider" className="slider"
-          style={{ width: canvasWidth - 10, height: '1rem' }} /><br />
+          onChange={this.moveSlide} style={{ width: canvasWidth - 10, height: '1rem' }} /><br />
         <button id='turn' onClick={this.handleTurnStream}>turn Off</button>
         <button onClick={this.takePhoto}>take photo</button>
         <button id='savePhoto' style={{ display: 'none' }} onClick={this.downloadCanvasIamge}>save photo</button>
         <a id='downloadImg'></a>
-        <Photo />
+        <Photo filterStyle={filterStyle} />
       </div>
     );
   }

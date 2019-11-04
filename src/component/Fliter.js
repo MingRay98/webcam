@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 
-
-class Photo extends Component {
+class Fliter extends Component {
   constructor(props) {
     super(props);
     this.state = {  };
   }
   render() {
     return (
-      <div>
-        <canvas id='photoCanvas' className='Stream'/>
+      <div align='center'>
+        <image alt='' src={this.props.imgUrl} ></image>
       </div>
     );
   }
 }
 
-export default Photo;
+export default Fliter;

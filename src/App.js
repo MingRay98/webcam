@@ -7,20 +7,18 @@ import './App.css'
 let facing = "user"
 var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 window.isMobile = isMobile;
-let videoinput_id = '';
 
-
-
-let blur = 0
+let blur = 0, grayscale = 0, contrast = 1, brightness = 95
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      videoCanvasStyle: {
-        filter: 'blur(0px)',
-      },
-      constraints : {
+      blur: 'blur(0px)',
+      grayscale: 'grayscale(0%)',
+      contrast: 'contrast(1)',
+      brightness: 'brightness(.95)',
+      constraints: {
         video: { facingMode: 'user' },
         audio: false
       }
@@ -31,29 +29,16 @@ class App extends Component {
     this.buttonTurn = document.getElementById('turn');
   }
 
-
-
-
-
   handleCameraChange = () => {
-
-    navigator.mediaDevices.enumerateDevices().then(function (devices) {
-      devices = devices.filter(function (devices) { return devices.kind === 'videoinput'; });
-      devices.forEach(function (device) {
-        if (device.label.toLowerCase().search("back") > -1) {
-          videoinput_id = device.deviceId;
-        }
-      })
-    });
 
     if (isMobile)
       if (facing === 'user') {
         facing = 'environment'
-        this.setState({constraints : { audio: false, video: { facingMode: 'environment' } }});
+        this.setState({ constraints: { audio: false, video: { facingMode: 'environment' } } });
       }
       else {
         facing = 'user'
-        this.setState({constraints : { audio: false, video: { facingMode: "user" } }});
+        this.setState({ constraints: { audio: false, video: { facingMode: "user" } } });
       }
     else
       console.log('Isn\'t molibe ');
@@ -62,28 +47,88 @@ class App extends Component {
     this.buttonTurn.click();
   }
 
-  addBlur = () => {
-    console.log(blur = blur + 1)
-    this.setState({ videoCanvasStyle: { filter: "blur(" + blur + "px" + ")" } })
+  addFliter = (e) => {
+    const type = e.target.value;
+    switch (type) {
+      case 'blur':
+        blur = blur + 1;
+        this.setState({ blur: "blur(" + blur + "px)" })
+        break;
+      case 'grayscale':
+        grayscale = grayscale + 10;
+        this.setState({ grayscale: "grayscale(" + grayscale + "%)" })
+        break;
+      case 'contrast':
+        contrast = contrast + 1;
+        this.setState({ contrast: "contrast(" + contrast + ")" })
+        break;
+      case 'brightness':
+        brightness = brightness + 5;
+        this.setState({ brightness: "brightness(." + brightness + ")" })
+        break;
+      default:
+        break;
+    }
   }
-  minusBlur = () => {
-    console.log(blur = blur - 1)
-    this.setState({ videoCanvasStyle: { filter: "blur(" + blur + "px" + ")" } })
+  minusFliter = (e) => {
+    const type = e.target.value;
+    switch (type) {
+      case 'blur':
+        blur = blur - 1;
+        this.setState({ blur: "blur(" + blur + "px)" })
+        break;
+      case 'grayscale':
+        grayscale = grayscale - 10;
+        this.setState({ grayscale: "grayscale(" + grayscale + "%)" })
+        break;
+      case 'contrast':
+        contrast = contrast - 1;
+        this.setState({ contrast: "contrast(" + contrast + ")" })
+        break;
+      case 'brightness':
+        brightness = brightness - 5;
+        this.setState({ brightness: "brightness(." + brightness + ")" })
+        break;
+      default:
+        break;
+    }
   }
 
   desktopList = () => {
 
     if (!isMobile) {
+      let filterStyle = {
+        blur: this.state.blur,
+        grayscale: this.state.grayscale,
+        contrast: this.state.contrast,
+        brightness: this.state.brightness
+      }
       return (
         <div style={{ display: "flex" }}>
           <div style={{ width: "50vw" }}>
-            <Video facing={facing} constraints={this.state.constraints} videoCanvasStyle={this.state.videoCanvasStyle} />
+            <Video facing={facing} constraints={this.state.constraints} filterStyle={filterStyle} />
           </div>
-          <div className="desktopList" style={{ width: "50vw" }}>
-
-            <button onClick={this.addBlur}>++</button>
-            blur:{this.state.videoCanvasStyle.filter}
-            <button onClick={this.minusBlur}>--</button>
+          <div className="desktopList" style={{ width: "50vw", display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+            <div style={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
+              <button onClick={this.addFliter} value='blur'>++</button>
+              {this.state.blur}
+              <button onClick={this.minusFliter} value='blur'>--</button>
+            </div>
+            <div style={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
+              <button onClick={this.addFliter} value='grayscale'>++</button>
+              {this.state.grayscale}
+              <button onClick={this.minusFliter} value='grayscale'>--</button>
+            </div>
+            <div style={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
+              <button onClick={this.addFliter} value='contrast'>++</button>
+              {this.state.contrast}
+              <button onClick={this.minusFliter} value='contrast'>--</button>
+            </div>
+            <div style={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
+              <button onClick={this.addFliter} value='brightness'>++</button>
+              {this.state.brightness}
+              <button onClick={this.minusFliter} value='brightness'>--</button>
+            </div>
           </div>
         </div>
       )
