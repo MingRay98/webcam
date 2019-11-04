@@ -9,7 +9,7 @@ class Photo extends Component {
   render() {
     return (
       <div>
-        <canvas id='photoCanvas' className='Stream'/>
+        <canvas id='photoCanvas' />
       </div>
     );
   }

@@ -8,7 +8,7 @@ let facing = "user"
 var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 window.isMobile = isMobile;
 
-let blur = 0, grayscale = 0, contrast = 1, brightness = 95
+let blur = 0, grayscale = 0, contrast = 1, brightness = 1
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class App extends Component {
       blur: 'blur(0px)',
       grayscale: 'grayscale(0%)',
       contrast: 'contrast(1)',
-      brightness: 'brightness(.95)',
+      brightness: 'brightness(1)',
       constraints: {
         video: { facingMode: 'user' },
         audio: false
@@ -63,8 +63,9 @@ class App extends Component {
         this.setState({ contrast: "contrast(" + contrast + ")" })
         break;
       case 'brightness':
-        brightness = brightness + 5;
-        this.setState({ brightness: "brightness(." + brightness + ")" })
+        if (brightness >= 2) return;
+        brightness = brightness + 0.1;
+        this.setState({ brightness: "brightness(" + brightness + ")" })
         break;
       default:
         break;
@@ -74,20 +75,24 @@ class App extends Component {
     const type = e.target.value;
     switch (type) {
       case 'blur':
+        if (blur <= 0) return;
         blur = blur - 1;
         this.setState({ blur: "blur(" + blur + "px)" })
         break;
       case 'grayscale':
+        if (grayscale <= 0) return;
         grayscale = grayscale - 10;
         this.setState({ grayscale: "grayscale(" + grayscale + "%)" })
         break;
       case 'contrast':
+        if (contrast <= 1) return;
         contrast = contrast - 1;
         this.setState({ contrast: "contrast(" + contrast + ")" })
         break;
       case 'brightness':
-        brightness = brightness - 5;
-        this.setState({ brightness: "brightness(." + brightness + ")" })
+        if (brightness <= 0.11) return;
+        brightness = brightness - 0.1;
+        this.setState({ brightness: "brightness(" + brightness + ")" })
         break;
       default:
         break;
@@ -96,19 +101,20 @@ class App extends Component {
 
   desktopList = () => {
 
+    let filterStyle = {
+      blur: this.state.blur,
+      grayscale: this.state.grayscale,
+      contrast: this.state.contrast,
+      brightness: this.state.brightness
+    }
+
     if (!isMobile) {
-      let filterStyle = {
-        blur: this.state.blur,
-        grayscale: this.state.grayscale,
-        contrast: this.state.contrast,
-        brightness: this.state.brightness
-      }
       return (
         <div style={{ display: "flex" }}>
           <div style={{ width: "50vw" }}>
             <Video facing={facing} constraints={this.state.constraints} filterStyle={filterStyle} />
           </div>
-          <div className="desktopList" style={{ width: "50vw", display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+          <div className="desktopList" style={{ width: "50vw", display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
             <div style={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
               <button onClick={this.addFliter} value='blur'>++</button>
               {this.state.blur}
@@ -133,14 +139,14 @@ class App extends Component {
         </div>
       )
     } else {
-      return <Video facing={facing} constraints={this.state.constraints} />
+      return <Video facing={facing} constraints={this.state.constraints} filterStyle={filterStyle} />
     }
   }
 
   render() {
     return (
       <div >
-        <Header handleCameraChange={this.handleCameraChange} />
+        <Header handleCameraChange={this.handleCameraChange} add={this.addFliter} minus={this.minusFliter} />
         {this.desktopList()}
       </div>
     );
