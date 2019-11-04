@@ -14,7 +14,7 @@ function init() {
     alert('Mobile Mode')
   }
   else {
-    canvasWidth = window.innerWidth * 0.49;
+    canvasWidth = window.innerWidth * 0.4;
     canvasHeight = canvasWidth * 0.5625;
   }
   imageWidth = canvasWidth
