@@ -7,11 +7,9 @@ import './App.css'
 let facing = "user"
 var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 window.isMobile = isMobile;
+let videoinput_id = '';
 
-let constraints = {
-  video: { facingMode: 'user' },
-  audio: false
-}
+
 
 let blur = 0
 
@@ -19,8 +17,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      videoCanvasStyle:{
+      videoCanvasStyle: {
         filter: 'blur(0px)',
+      },
+      constraints : {
+        video: { facingMode: 'user' },
+        audio: false
       }
     };
   }
@@ -30,15 +32,28 @@ class App extends Component {
   }
 
 
+
+
+
   handleCameraChange = () => {
+
+    navigator.mediaDevices.enumerateDevices().then(function (devices) {
+      devices = devices.filter(function (devices) { return devices.kind === 'videoinput'; });
+      devices.forEach(function (device) {
+        if (device.label.toLowerCase().search("back") > -1) {
+          videoinput_id = device.deviceId;
+        }
+      })
+    });
+
     if (isMobile)
       if (facing === 'user') {
         facing = 'environment'
-        constraints = { audio: false, video: { facingMode: { exact: "environment" } } }
+        this.setState({constraints : { audio: false, video: { facingMode: 'environment' } }});
       }
       else {
         facing = 'user'
-        constraints = { audio: false, video: { facingMode: "user" } }
+        this.setState({constraints : { audio: false, video: { facingMode: "user" } }});
       }
     else
       console.log('Isn\'t molibe ');
@@ -48,32 +63,32 @@ class App extends Component {
   }
 
   addBlur = () => {
-    console.log(blur = blur+1 )
-    this.setState({videoCanvasStyle:{filter:"blur("+blur+"px"+")"}})
+    console.log(blur = blur + 1)
+    this.setState({ videoCanvasStyle: { filter: "blur(" + blur + "px" + ")" } })
   }
   minusBlur = () => {
-    console.log(blur = blur-1 )
-    this.setState({videoCanvasStyle:{filter:"blur("+blur+"px"+")"}})
+    console.log(blur = blur - 1)
+    this.setState({ videoCanvasStyle: { filter: "blur(" + blur + "px" + ")" } })
   }
 
   desktopList = () => {
 
     if (!isMobile) {
       return (
-        <div style={{display:"flex"}}>
+        <div style={{ display: "flex" }}>
           <div style={{ width: "50vw" }}>
-            <Video facing={facing} constraints={constraints} videoCanvasStyle={this.state.videoCanvasStyle} />
+            <Video facing={facing} constraints={this.state.constraints} videoCanvasStyle={this.state.videoCanvasStyle} />
           </div>
           <div className="desktopList" style={{ width: "50vw" }}>
-            
-            <button onClick={this.addBlur }>++</button>
+
+            <button onClick={this.addBlur}>++</button>
             blur:{this.state.videoCanvasStyle.filter}
             <button onClick={this.minusBlur}>--</button>
-        </div>
+          </div>
         </div>
       )
     } else {
-      return <Video facing={facing} constraints={constraints} />
+      return <Video facing={facing} constraints={this.state.constraints} />
     }
   }
 

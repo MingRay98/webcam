@@ -68,12 +68,12 @@ class Video extends Component {
   stopSlide = (e) => {
     this.slider.removeEventListener('mousemove', this.moveSlide, false);
     this.slider.removeEventListener('touchmove', this.moveSlide, false);
-
   }
 
   async getVideoStream() {
     try {
       const videoStream = await navigator.mediaDevices.getUserMedia(this.props.constraints)
+      console.log(this.props.constraints)
       this.video.srcObject = videoStream;
     } catch (e) {
       alert(e);
