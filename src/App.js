@@ -81,7 +81,7 @@ class App extends Component {
     return (
       <div >
         <Header handleCameraChange={this.handleCameraChange} />
-        {this.desktopList()}123
+        {this.desktopList()}
       </div>
     );
   }
