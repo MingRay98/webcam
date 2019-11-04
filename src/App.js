@@ -34,17 +34,17 @@ class App extends Component {
     if (isMobile)
       if (facing === 'user') {
         facing = 'environment'
-        this.setState({ constraints: { audio: false, video: { facingMode: 'environment' } } });
+        this.setState({ constraints: { audio: false, video: { facingMode: 'environment' } } },()=>{   this.buttonTurn.click();
+          this.buttonTurn.click();});
       }
       else {
         facing = 'user'
-        this.setState({ constraints: { audio: false, video: { facingMode: "user" } } });
+        this.setState({ constraints: { audio: false, video: { facingMode: "user" } } },()=>{   this.buttonTurn.click();
+          this.buttonTurn.click();});
       }
     else
       console.log('Isn\'t molibe ');
 
-    this.buttonTurn.click();
-    this.buttonTurn.click();
   }
 
   addFliter = (e) => {

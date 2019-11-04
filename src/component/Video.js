@@ -49,8 +49,6 @@ class Video extends Component {
 
   }
 
-
-
   startSlide = (e) => {
     this.slider.addEventListener('mousemove', this.moveSlide, false);
     this.slider.addEventListener('touchmove', this.moveSlide, false);
@@ -120,18 +118,20 @@ class Video extends Component {
 
   drawPhoto = () => {
     const ctx = this.photoCanvas.getContext('2d');
-    ctx.scale(-1,1); 
-    ctx.translate(-ctx.canvas.width,0)
+
     let img = new Image()
     img.onload = () => {
       ctx.filter = this.props.filterStyle.blur + " " + this.props.filterStyle.grayscale + " " + this.props.filterStyle.brightness + " " + this.props.filterStyle.contrast;
       if (scale >= 1) {
-
+        ctx.scale(-1,1); 
+        ctx.translate(-ctx.canvas.width,0)
         ctx.drawImage(img, 0, 0);
       }
       else {
         this.photoCanvas.width = canvasWidth * scale;
         this.photoCanvas.height = canvasHeight * scale;
+        ctx.scale(-1,1); 
+        ctx.translate(-ctx.canvas.width,0)
         ctx.drawImage(img, -dx, -dy);
         
       }

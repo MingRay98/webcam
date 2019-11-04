@@ -7,17 +7,17 @@ class Header extends Component {
     this.state = {};
   }
 
-  handleOnclick=(e)=>{
+  handleOnclick = (e) => {
     const styleSelect = document.getElementById('youStyle');
     let temp = {
-      target : {
-        value : styleSelect.options[styleSelect.options.selectedIndex].value
+      target: {
+        value: styleSelect.options[styleSelect.options.selectedIndex].value
       }
     }
-    if(e.target.innerHTML==='+'){
+    if (e.target.innerHTML === '+') {
       this.props.add(temp)
     }
-    else{
+    else {
       this.props.minus(temp)
     }
 
@@ -27,15 +27,15 @@ class Header extends Component {
     if (window.isMobile)
       return (
         <div className='header'>
-          <div style={{width: "38%"}}>
-          <button className='headerBtn' onClick={this.handleOnclick} style={{ width: "1.2rem"}}>+</button>
-          <select id="youStyle">
-            <option value="blur">Blur</option>
-            <option value="grayscale">Grayscale</option>
-            <option value="contrast">Contrast</option>
-            <option value="brightness">Brightness</option>
-          </select>
-          <button className='headerBtn' onClick={this.handleOnclick} style={{ width: "1.2rem"}}>-</button>
+          <div style={{ width: "40%" }}>
+            <button className='headerBtn' onClick={this.handleOnclick} style={{ width: "1rem", padding: '0px' }}>+</button>
+            <select id="youStyle" style={{ width: "50%" }} >
+              <option value="blur">Blur</option>
+              <option value="grayscale">Grayscale</option>
+              <option value="contrast">Contrast</option>
+              <option value="brightness">Brightness</option>
+            </select>
+            <button className='headerBtn' onClick={this.handleOnclick} style={{ width: "1rem", padding: '0px' }}>-</button>
           </div>
           Webcam
         < button className='headerBtn' onClick={this.props.handleCameraChange} > turn</button >
