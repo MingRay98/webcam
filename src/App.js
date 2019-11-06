@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import Header from './component/Header'
-import Photo from './component/Photo'
+import Fliter from './component/Fliter'
 import Video from './component/Video'
 import './App.css'
 
 let facing = "user"
-var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 window.isMobile = isMobile;
-
 let blur = 0, grayscale = 0, contrast = 1, brightness = 1
 
 class App extends Component {
@@ -99,7 +98,7 @@ class App extends Component {
     }
   }
 
-  desktopList = () => {
+  moblieORdestop = () => {
 
     let filterStyle = {
       blur: this.state.blur,
@@ -114,28 +113,9 @@ class App extends Component {
           <div style={{ width: "50vw" }}>
             <Video facing={facing} constraints={this.state.constraints} filterStyle={filterStyle} />
           </div>
-          <div className="desktopList" style={{ width: "50vw", display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
-            <div style={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
-              <button onClick={this.addFliter} value='blur'>++</button>
-              {this.state.blur}
-              <button onClick={this.minusFliter} value='blur'>--</button>
-            </div>
-            <div style={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
-              <button onClick={this.addFliter} value='grayscale'>++</button>
-              {this.state.grayscale}
-              <button onClick={this.minusFliter} value='grayscale'>--</button>
-            </div>
-            <div style={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
-              <button onClick={this.addFliter} value='contrast'>++</button>
-              {this.state.contrast}
-              <button onClick={this.minusFliter} value='contrast'>--</button>
-            </div>
-            <div style={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
-              <button onClick={this.addFliter} value='brightness'>++</button>
-              {this.state.brightness}
-              <button onClick={this.minusFliter} value='brightness'>--</button>
-            </div>
-          </div>
+          <Fliter addFliter={this.addFliter} 
+          minusFliter={this.minusFliter} 
+          filterStyle={filterStyle} />
         </div>
       )
     } else {
@@ -147,7 +127,7 @@ class App extends Component {
     return (
       <div >
         <Header handleCameraChange={this.handleCameraChange} add={this.addFliter} minus={this.minusFliter} />
-        {this.desktopList()}
+        {this.moblieORdestop()}
       </div>
     );
   }

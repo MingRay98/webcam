@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import Photo from './Photo'
+import Photo from './Photo';
+import Slider from './Slider';
+
 let canvasWidth = null, canvasHeight = null;
 let imageWidth = 0
 let imageHeight = 0
@@ -7,7 +9,18 @@ let dx = 0
 let dy = 0
 let scale = 1
 
-function init() {
+window.onresize = function (event) {
+  let videoCanvas = document.getElementById('videoCanvas');
+  let photoCanvas = document.getElementById('photoCanvas');
+  let slider = document.getElementById('slider');
+  videoCanvas.style.width = '95%'
+  photoCanvas.style.width = '95%'
+  slider.style.width = '95%'
+  if (window.innerWidth < 700 && !window.isMobile)
+    window.location.reload()
+};
+
+const init = () => {
   if (window.isMobile) {
     canvasWidth = window.innerWidth;
     canvasHeight = canvasWidth * 4 / 3;
@@ -42,10 +55,8 @@ class Video extends Component {
     this.photoCanvas = document.getElementById('photoCanvas');
 
     this.slider = document.getElementById('slider');
-    // this.slider.addEventListener('mousedown', this.startSlide, false);
-    // this.slider.addEventListener('mouseup', this.stopSlide, false);
-    this.slider.addEventListener('touchstart', this.startSlide, false);
-    this.slider.addEventListener('touchend', this.stopSlide, false);
+    // this.slider.addEventListener('touchstart', this.startSlide, false);
+    // this.slider.addEventListener('touchend', this.stopSlide, false);
 
   }
 
@@ -123,17 +134,15 @@ class Video extends Component {
     img.onload = () => {
       ctx.filter = this.props.filterStyle.blur + " " + this.props.filterStyle.grayscale + " " + this.props.filterStyle.brightness + " " + this.props.filterStyle.contrast;
       if (scale >= 1) {
-        ctx.scale(-1,1); 
-        ctx.translate(-ctx.canvas.width,0)
+        ctx.scale(-1, 1);
+        ctx.translate(-ctx.canvas.width, 0)
         ctx.drawImage(img, 0, 0);
-      }
-      else {
-        this.photoCanvas.width = canvasWidth * scale;
-        this.photoCanvas.height = canvasHeight * scale;
-        ctx.scale(-1,1); 
-        ctx.translate(-ctx.canvas.width,0)
+      } else {
+        this.photoCanvas.width = imageWidth;
+        this.photoCanvas.height = imageHeight;
+        ctx.scale(-1, 1);
+        ctx.translate(-ctx.canvas.width, 0)
         ctx.drawImage(img, -dx, -dy);
-        
       }
     }
     img.src = this.state.imgSrc;
@@ -154,13 +163,8 @@ class Video extends Component {
       <div align="center">
         <video autoPlay={true} id="video" style={{ display: 'none' }} />
         <canvas id="videoCanvas" style={filterStyle} className='Stream' /><br />
-        <input type="range" min="0.5" max="1.5" step="0.1" defaultValue="1" id="slider" className="slider"
-          onChange={this.moveSlide} style={{ width: canvasWidth - 10, height: '1rem' }} /><br />
-        <button id='turn' onClick={this.handleTurnStream}>turn Off</button>
-        <button onClick={this.takePhoto}>take photo</button>
-        <button id='savePhoto' style={{ display: 'none' }} onClick={this.downloadCanvasIamge}>save photo</button>
-        <a id='downloadImg'></a>
-        <Photo filterStyle={filterStyle} />
+        <Slider moveSlide={this.moveSlide} handleTurnStream={this.handleTurnStream} takePhoto={this.takePhoto} downloadCanvasIamge={this.downloadCanvasIamge} width={this.canvasWidth} />
+        <Photo />
       </div>
     );
   }
