@@ -104,3 +104,7 @@ button {
 }
 
 /* color style */
+
+canvas{
+  object-fit: contain
+}

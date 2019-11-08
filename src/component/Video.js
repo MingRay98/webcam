@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Photo from './Photo';
 import Slider from './Slider';
+import '../App.css'
 
 let canvasWidth = null, canvasHeight = null;
 let imageWidth = 0
@@ -8,17 +9,6 @@ let imageHeight = 0
 let dx = 0
 let dy = 0
 let scale = 1
-
-window.onresize = function (event) {
-  let videoCanvas = document.getElementById('videoCanvas');
-  let photoCanvas = document.getElementById('photoCanvas');
-  let slider = document.getElementById('slider');
-  videoCanvas.style.width = '95%'
-  photoCanvas.style.width = '95%'
-  slider.style.width = '95%'
-  if (window.innerWidth < 700 && !window.isMobile)
-    window.location.reload()
-};
 
 const init = () => {
   if (window.isMobile) {
@@ -86,6 +76,7 @@ class Video extends Component {
       const videoStream = await navigator.mediaDevices.getUserMedia(this.props.constraints)
       console.log(this.props.constraints)
       this.video.srcObject = videoStream;
+      window.videoStream = videoStream;
     } catch (e) {
       alert(e);
     }
@@ -161,7 +152,7 @@ class Video extends Component {
 
     return (
       <div align="center">
-        <video autoPlay={true} id="video" style={{ display: 'none' }} />
+        <video autoPlay={true} id="video" style={{ display: "none" }}  />
         <canvas id="videoCanvas" style={filterStyle} className='Stream' /><br />
         <Slider moveSlide={this.moveSlide} handleTurnStream={this.handleTurnStream} takePhoto={this.takePhoto} downloadCanvasIamge={this.downloadCanvasIamge} width={this.canvasWidth} />
         <Photo />

@@ -8,7 +8,7 @@ class Fliter extends Component {
   render() {
     return (
       <div align='center'>
-        <div className="desktopList" style={{ width: "50vw", display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
+        <div className="desktopList" style={{ width: "40vw", display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
             <div style={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
               <button onClick={this.props.addFliter} value='blur'>++</button>
               {this.props.filterStyle.blur}

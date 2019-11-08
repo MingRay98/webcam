@@ -18,7 +18,7 @@ class App extends Component {
       contrast: 'contrast(1)',
       brightness: 'brightness(1)',
       constraints: {
-        video: { facingMode: 'user' },
+        video: { facingMode: 'user',  width: {exact: 1920}, height: {exact: 1080} },
         audio: false
       }
     };
@@ -33,12 +33,12 @@ class App extends Component {
     if (isMobile)
       if (facing === 'user') {
         facing = 'environment'
-        this.setState({ constraints: { audio: false, video: { facingMode: 'environment' } } },()=>{   this.buttonTurn.click();
+        this.setState({ constraints: { audio: false, video: { facingMode: 'environment', width: {exact: 600}, height: {exact: 800} } } },()=>{   this.buttonTurn.click();
           this.buttonTurn.click();});
       }
       else {
         facing = 'user'
-        this.setState({ constraints: { audio: false, video: { facingMode: "user" } } },()=>{   this.buttonTurn.click();
+        this.setState({ constraints: { audio: false, video: { facingMode: "user" , width: {exact: 600}, height: {exact: 800}  } } },()=>{   this.buttonTurn.click();
           this.buttonTurn.click();});
       }
     else
@@ -110,7 +110,7 @@ class App extends Component {
     if (!isMobile) {
       return (
         <div style={{ display: "flex" }}>
-          <div style={{ width: "50vw" }}>
+          <div style={{ width: "60vw" }}>
             <Video facing={facing} constraints={this.state.constraints} filterStyle={filterStyle} />
           </div>
           <Fliter addFliter={this.addFliter} 
