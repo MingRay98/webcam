@@ -13,7 +13,7 @@ let scale = 1
 const init = () => {
   if (window.isMobile) {
     canvasWidth = window.innerWidth;
-    canvasHeight = canvasWidth * 4 / 3;
+    canvasHeight = canvasWidth * 16 / 9;
     alert('Mobile Mode')
   }
   else {
