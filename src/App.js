@@ -33,12 +33,12 @@ class App extends Component {
     if (isMobile)
       if (facing === 'user') {
         facing = 'environment'
-        this.setState({ constraints: { audio: false, video: { facingMode: 'environment', width: {exact: 600}, height: {exact: 800} } } },()=>{   this.buttonTurn.click();
+        this.setState({ constraints: { audio: false, video: { facingMode: 'environment', width: {exact: 1920}, height: {exact: 1080} } } },()=>{   this.buttonTurn.click();
           this.buttonTurn.click();});
       }
       else {
         facing = 'user'
-        this.setState({ constraints: { audio: false, video: { facingMode: "user" , width: {exact: 600}, height: {exact: 800}  } } },()=>{   this.buttonTurn.click();
+        this.setState({ constraints: { audio: false, video: { facingMode: "user" , width: {exact: 1920}, height: {exact: 1080}  } } },()=>{   this.buttonTurn.click();
           this.buttonTurn.click();});
       }
     else
