@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/webcam/static/css/main.b5f63983.chunk.css",
-    "main.js": "/webcam/static/js/main.7add3f3c.chunk.js",
-    "main.js.map": "/webcam/static/js/main.7add3f3c.chunk.js.map",
+    "main.css": "/webcam/static/css/main.de3c5ad8.chunk.css",
+    "main.js": "/webcam/static/js/main.9c2c86fa.chunk.js",
+    "main.js.map": "/webcam/static/js/main.9c2c86fa.chunk.js.map",
     "runtime-main.js": "/webcam/static/js/runtime-main.9b368f1f.js",
     "runtime-main.js.map": "/webcam/static/js/runtime-main.9b368f1f.js.map",
     "static/js/2.bd5129db.chunk.js": "/webcam/static/js/2.bd5129db.chunk.js",
     "static/js/2.bd5129db.chunk.js.map": "/webcam/static/js/2.bd5129db.chunk.js.map",
     "index.html": "/webcam/index.html",
-    "precache-manifest.44bf755bfa067c113ebb379468757074.js": "/webcam/precache-manifest.44bf755bfa067c113ebb379468757074.js",
+    "precache-manifest.004057fde4a8a698bd1b4165e5ba2f79.js": "/webcam/precache-manifest.004057fde4a8a698bd1b4165e5ba2f79.js",
     "service-worker.js": "/webcam/service-worker.js",
-    "static/css/main.b5f63983.chunk.css.map": "/webcam/static/css/main.b5f63983.chunk.css.map"
+    "static/css/main.de3c5ad8.chunk.css.map": "/webcam/static/css/main.de3c5ad8.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.9b368f1f.js",
     "static/js/2.bd5129db.chunk.js",
-    "static/css/main.b5f63983.chunk.css",
-    "static/js/main.7add3f3c.chunk.js"
+    "static/css/main.de3c5ad8.chunk.css",
+    "static/js/main.9c2c86fa.chunk.js"
   ]
 }
