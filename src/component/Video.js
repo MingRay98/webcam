@@ -18,11 +18,12 @@ const init = () => {
   }
   else {
     canvasWidth = window.innerWidth * 0.4;
-    canvasHeight = canvasWidth * 0.5625;
+    canvasHeight = canvasWidth * 9 / 16;
   }
   imageWidth = canvasWidth
   imageHeight = canvasHeight
 }
+
 
 class Video extends Component {
   constructor(props) {
@@ -63,7 +64,6 @@ class Video extends Component {
       const videoStream = await navigator.mediaDevices.getUserMedia(this.props.constraints)
       console.log(this.props.constraints)
       this.video.srcObject = videoStream;
-      window.videoStream = videoStream;
     } catch (e) {
       alert(e);
     }
