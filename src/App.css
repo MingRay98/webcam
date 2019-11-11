@@ -1,5 +1,19 @@
-img {
-  object-fit: contain;
+body {
+  margin: 0;
+  width: 100%;
+  background: rgb(39, 38, 48);
+  background: linear-gradient(135deg, rgba(39, 38, 48, 0.5) 2%, rgba(0, 212, 255, 0.5) 35%, rgba(148, 75, 170, 0.6) 60%);
+  font-size: 2rem;
+  color: rgb(41, 42, 68);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+button {
+  margin: 0.5rem;
+  border-radius: 5rem;
+  font-size: 1rem;
+  width: 28%;
+  height: 2rem;
 }
 
 .Stream {
@@ -17,31 +31,12 @@ img {
   width: 100%;
 }
 
-body {
-  margin: 0;
-  width: 100%;
-  background: rgb(39, 38, 48);
-  background: linear-gradient(135deg, rgba(39, 38, 48, 0.5) 2%, rgba(0, 212, 255, 0.5) 35%, rgba(148, 75, 170, 0.6) 60%);
-  font-size: 2rem;
-  ;
-  color: rgb(41, 42, 68);
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-}
-
 .headerBtn {
   margin: 0.5rem;
   border: none;
   border-radius: 5rem;
   font-size: 1rem;
   width: 20%;
-}
-
-button {
-  margin: 0.5rem;
-  border-radius: 5rem;
-  font-size: 1rem;
-  width: 28%;
-  height: 2rem;
 }
 
 .desktopList {
@@ -52,9 +47,8 @@ button {
 }
 
 .slider {
-  -webkit-appearance: none;
-  /* Override default CSS styles */
   appearance: none;
+  /* Override default CSS styles */
   background: #d3d3d3;
   /* Grey background */
   outline: none;
@@ -69,30 +63,14 @@ button {
 }
 
 /* Mouse-over effects */
-
 .slider:hover {
   opacity: 1;
-  /* Fully shown on mouse-over */
 }
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
   /* Override default look */
   appearance: none;
-  border-radius: 5rem;
-  width: 1.5rem;
-  /* Set a specific slider handle width */
-  height: 1.5rem;
-  /* Slider handle height */
-  background: #4CAF50;
-  /* Green background */
-  cursor: pointer;
-  /* Cursor on hover */
-}
-
-.slider::-moz-range-thumb {
   border-radius: 5rem;
   width: 1.5rem;
   /* Set a specific slider handle width */

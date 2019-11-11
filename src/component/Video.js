@@ -30,7 +30,6 @@ class Video extends Component {
     super(props);
     this.state = {
       imgSrc: '',
-
     };
   }
 

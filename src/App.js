@@ -17,11 +17,12 @@ class App extends Component {
       grayscale: 'grayscale(0%)',
       contrast: 'contrast(1)',
       brightness: 'brightness(1)',
-      constraints: {
-        video: { facingMode: 'user', width: { exact: 1920 }, height: { exact: 1080 } },
-        audio: false
-      }
-    };
+    }
+
+    this.constraints = {
+      video: { facingMode: 'user', width: { exact: 1920 }, height: { exact: 1080 } },
+      audio: false
+    }
   }
 
   componentDidMount() {
@@ -117,7 +118,7 @@ class App extends Component {
       return (
         <div style={{ display: "flex" }}>
           <div style={{ width: "60vw" }}>
-            <Video facing={facing} constraints={this.state.constraints} filterStyle={filterStyle} />
+            <Video facing={facing} constraints={this.constraints} filterStyle={filterStyle} />
           </div>
           <Fliter addFliter={this.addFliter}
             minusFliter={this.minusFliter}
@@ -125,7 +126,7 @@ class App extends Component {
         </div>
       )
     } else {
-      return <Video facing={facing} constraints={this.state.constraints} filterStyle={filterStyle} />
+      return <Video facing={facing} constraints={this.constraints} filterStyle={filterStyle} />
     }
   }
 
