@@ -139,7 +139,7 @@ class Video extends Component {
 
     return (
       <div align="center">
-        <video autoPlay={true} id="video" style={{ display: "none" }} />
+        <video autoPlay={true} id="video" style={{ display: "none"  }} />
         <canvas id="videoCanvas" style={filterStyle} className='Stream' /><br />
         <Slider moveSlide={this.moveSlide} handleTurnStream={this.handleTurnStream} takePhoto={this.takePhoto} downloadCanvasIamge={this.downloadCanvasIamge} width={this.canvasWidth} />
         <Photo />

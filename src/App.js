@@ -45,7 +45,7 @@ class App extends Component {
           this.buttonTurn.click();
           this.buttonTurn.click();
         });
-        document.getElementById('videoCanvas').className = 'stream'
+        document.getElementById('videoCanvas').className = 'Stream'
       }
     else
       console.log('Isn\'t molibe ');
