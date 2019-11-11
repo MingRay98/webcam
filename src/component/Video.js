@@ -43,11 +43,6 @@ class Video extends Component {
     this.drawVideoToCanvas();
     this.photoCanvas = document.getElementById('photoCanvas');
     this.slider = document.getElementById('slider');
-    if (window.isMobile) {
-      canvasHeight = canvasWidth * 0.7;
-    }
-
-
 
   }
 
