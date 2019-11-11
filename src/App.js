@@ -70,7 +70,7 @@ class App extends Component {
       case 'brightness':
         if (brightness >= 2) return;
         brightness = brightness + 0.1;
-        this.setState({ brightness: "brightness(" + brightness + ")" })
+        this.setState({ brightness: "brightness(" + brightness.toFixed(1) + ")" })
         break;
       default:
         break;
@@ -97,7 +97,7 @@ class App extends Component {
       case 'brightness':
         if (brightness <= 0.11) return;
         brightness = brightness - 0.1;
-        this.setState({ brightness: "brightness(" + brightness + ")" })
+        this.setState({ brightness: "brightness(" + brightness.toFixed(1) + ")" })
         break;
       default:
         break;

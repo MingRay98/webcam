@@ -13,11 +13,11 @@ let scale = 1
 const init = () => {
   if (window.isMobile) {
     canvasWidth = window.innerWidth;
-    canvasHeight = canvasWidth * 16 / 9;
-    alert('Mobile Mode')
+    canvasHeight = canvasWidth * 9 / 16;
+    console.log('Mobile Mode')
   }
   else {
-    canvasWidth = window.innerWidth * 0.4;
+    canvasWidth = window.innerWidth * 0.41;
     canvasHeight = canvasWidth * 9 / 16;
   }
   imageWidth = canvasWidth
@@ -62,7 +62,6 @@ class Video extends Component {
   async getVideoStream() {
     try {
       const videoStream = await navigator.mediaDevices.getUserMedia(this.props.constraints)
-      console.log(this.props.constraints)
       this.video.srcObject = videoStream;
     } catch (e) {
       alert(e);

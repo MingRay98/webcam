@@ -20,11 +20,12 @@ img {
 body {
   margin: 0;
   width: 100%;
-  background: rgb(39,38,48);
-  background: linear-gradient(135deg, rgba(39,38,48,0.5) 2%, rgba(0,212,255,0.5) 35%, rgba(148,75,170,0.6) 60%);
-  font-size: 2rem;;
-  color:rgb(41, 42, 68);
-  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background: rgb(39, 38, 48);
+  background: linear-gradient(135deg, rgba(39, 38, 48, 0.5) 2%, rgba(0, 212, 255, 0.5) 35%, rgba(148, 75, 170, 0.6) 60%);
+  font-size: 2rem;
+  ;
+  color: rgb(41, 42, 68);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .headerBtn {
@@ -103,8 +104,8 @@ button {
   /* Cursor on hover */
 }
 
-/* color style */
-
-canvas{
-  object-fit: contain
+@media only screen and (max-width: 700px) {
+  html {
+    height: 100vh;
+  }
 }
