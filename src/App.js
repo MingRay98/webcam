@@ -19,8 +19,8 @@ class App extends Component {
       brightness: 'brightness(1)',
     }
 
-    this.constraints = {
-      video: { facingMode: 'user', width: { max: 800 }, height: { max: 600 }   },
+    global.constraints = {
+      video: { facingMode: 'user', width: { ideal: 800 }, height: { ideal: 600 } },
       audio: false
     }
   }
@@ -33,18 +33,16 @@ class App extends Component {
     if (isMobile)
       if (facing === 'user') {
         facing = 'environment'
-        this.constraints({ constraints: { audio: false, video: { facingMode: 'environment', width: { max: 800 }, height: { max: 600 }  } } }, () => {
-          this.buttonTurn.click();
-          this.buttonTurn.click();
-        });
+        global.constraints = { constraints: { audio: false, video: { facingMode: 'environment', width: { ideal: 800 }, height: { ideal: 600 } } } }
+        this.buttonTurn.click();
+        this.buttonTurn.click();
         document.getElementById('videoCanvas').className = ''
       }
       else {
         facing = 'user'
-        this.constraints({ constraints: { audio: false, video: { facingMode: "user", width: { max: 800 }, height: { max: 600 }  } } }, () => {
-          this.buttonTurn.click();
-          this.buttonTurn.click();
-        });
+        global.constraints = { constraints: { audio: false, video: { facingMode: "user", width: { ideal: 800 }, height: { ideal: 600 } } } }
+        this.buttonTurn.click();
+        this.buttonTurn.click();
         document.getElementById('videoCanvas').className = 'Stream'
       }
     else
@@ -117,7 +115,7 @@ class App extends Component {
       return (
         <div style={{ display: "flex" }}>
           <div style={{ width: "60vw" }}>
-            <Video facing={facing} constraints={this.constraints} filterStyle={filterStyle} />
+            <Video facing={facing} filterStyle={filterStyle} />
           </div>
           <Fliter addFliter={this.addFliter}
             minusFliter={this.minusFliter}

@@ -13,14 +13,14 @@ let scale = 1
 const init = () => {
   if (window.isMobile) {
     canvasWidth = window.innerWidth;
-    canvasHeight = 450;
+    canvasHeight = 500;
     console.log('Mobile Mode')
   } else {
-    canvasWidth = 500;
-    canvasHeight = 400;
+    canvasWidth = 800;
+    canvasHeight = 600;
   }
   imageWidth = 800
-  imageHeight = 450
+  imageHeight = 600
 }
 
 
@@ -50,7 +50,7 @@ class Video extends Component {
     scale = parseFloat(e.target.value);
 
     imageWidth = 800 * scale;//800
-    imageHeight = 450 * scale;//400
+    imageHeight = 600 * scale;//400
 
     //畫布上的起始點：畫布的大小一半減去圖像大小的一半。可以為負數，表示在左上角的外面。
     dx = this.videoCanvas.width / 2 - imageWidth / 2;
@@ -60,7 +60,7 @@ class Video extends Component {
 
   async getVideoStream() {
     try {
-      const videoStream = await navigator.mediaDevices.getUserMedia(this.props.constraints)
+      const videoStream = await navigator.mediaDevices.getUserMedia(global.constraints)
       this.video.srcObject = videoStream;
     } catch (e) {
       alert(e);
@@ -119,7 +119,7 @@ class Video extends Component {
     let img = new Image()
     img.onload = () => {
       ctx.filter = this.props.filterStyle.blur + " " + this.props.filterStyle.grayscale + " " + this.props.filterStyle.brightness + " " + this.props.filterStyle.contrast;
-      if (this.props.constraints.video.facingMode === 'environment')
+      if (global.constraints.video.facingMode === 'environment')
         ctx.scale(1, 1);
       else
         ctx.scale(-1, 1)
