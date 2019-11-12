@@ -13,15 +13,14 @@ let scale = 1
 const init = () => {
   if (window.isMobile) {
     canvasWidth = window.innerWidth;
-    canvasHeight = canvasWidth * 9 / 16;
+    canvasHeight = 450;
     console.log('Mobile Mode')
+  } else {
+    canvasWidth = 800;
+    canvasHeight = 450;
   }
-  else {
-    canvasWidth = window.innerWidth * 0.41;
-    canvasHeight = canvasWidth * 9 / 16;
-  }
-  imageWidth = canvasWidth
-  imageHeight = canvasHeight
+  imageWidth = 800
+  imageHeight = 450
 }
 
 
@@ -39,7 +38,10 @@ class Video extends Component {
     this.video = document.getElementById('video');
     this.videoCanvas.width = canvasWidth;
     this.videoCanvas.height = canvasHeight;
+    dx = this.videoCanvas.width / 2 - imageWidth / 2;
+    dy = this.videoCanvas.height / 2 - imageHeight / 2;
     this.getVideoStream();
+    
     this.drawVideoToCanvas();
     this.photoCanvas = document.getElementById('photoCanvas');
     this.slider = document.getElementById('slider');
@@ -49,8 +51,8 @@ class Video extends Component {
   moveSlide = (e) => {
     scale = parseFloat(e.target.value);
 
-    imageWidth = canvasWidth * scale;
-    imageHeight = canvasHeight * scale;
+    imageWidth = 800 * scale;//800
+    imageHeight = 450 * scale;//400
 
     //畫布上的起始點：畫布的大小一半減去圖像大小的一半。可以為負數，表示在左上角的外面。
     dx = this.videoCanvas.width / 2 - imageWidth / 2;
@@ -65,12 +67,26 @@ class Video extends Component {
     } catch (e) {
       alert(e);
     }
+    this.video.srcObject.getVideoTracks().forEach((item)=>{
+      alert(item.getSettings().deviceId)
+      alert(item.getSettings().aspectRatio)
+      alert(item.getSettings().width )
+      alert(item.getSettings().height  )
+ 
+    })
   }
 
   drawVideoToCanvas = () => {
     let ctx = this.videoCanvas.getContext('2d')
+
+
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    ctx.drawImage(this.video, dx, dy, imageWidth, imageHeight);
+    ctx.save()
+    ctx.translate(dx, dy)
+    ctx.scale(scale, scale);
+    ctx.drawImage(this.video, 0, 0);
+
+    ctx.restore();
     requestAnimationFrame(this.drawVideoToCanvas);
   }
 
@@ -99,7 +115,8 @@ class Video extends Component {
   takePhoto = () => {
     this.photoCanvas.width = canvasWidth
     this.photoCanvas.height = canvasHeight
-    this.setState({ imgSrc: this.videoCanvas.toDataURL() }, () => { this.drawPhoto() });
+    this.setState({ imgSrc: this.videoCanvas.toDataURL() })
+    this.drawPhoto()
     document.getElementById('savePhoto').style = { display: '' };
   }
 
@@ -109,20 +126,16 @@ class Video extends Component {
     let img = new Image()
     img.onload = () => {
       ctx.filter = this.props.filterStyle.blur + " " + this.props.filterStyle.grayscale + " " + this.props.filterStyle.brightness + " " + this.props.filterStyle.contrast;
-      ctx.scale(-1, 1);
-      ctx.translate(-ctx.canvas.width, 0)
-      ctx.drawImage(img, 0, 0);
       if (this.props.constraints.video.facingMode === 'environment')
         ctx.scale(1, 1);
-    }
-    img.src = this.state.imgSrc;
-  }
+      else
+        ctx.scale(-1, 1)
+      ctx.translate(-ctx.canvas.width, 0)
+      ctx.drawImage(img, 0, 0);
 
-  // this.photoCanvas.width = imageWidth;
-  // this.photoCanvas.height = imageHeight;
-  // ctx.scale(-1, 1);
-  // ctx.translate(-ctx.canvas.width, 0)
-  // ctx.drawImage(img, -dx, -dy);
+    }
+    img.src = this.videoCanvas.toDataURL();
+  }
 
   downloadCanvasIamge = (e) => {
     let downloadImg = document.getElementById('downloadImg');
@@ -137,7 +150,7 @@ class Video extends Component {
 
     return (
       <div align="center">
-        <video autoPlay={true} id="video" style={{ display: "none"  }} />
+        <video autoPlay={true} id="video" style={{ display: "none" }} />
         <canvas id="videoCanvas" style={filterStyle} className='Stream' /><br />
         <Slider moveSlide={this.moveSlide} handleTurnStream={this.handleTurnStream} takePhoto={this.takePhoto} downloadCanvasIamge={this.downloadCanvasIamge} width={this.canvasWidth} />
         <Photo />

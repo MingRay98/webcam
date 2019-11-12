@@ -20,7 +20,7 @@ class App extends Component {
     }
 
     this.constraints = {
-      video: { facingMode: 'user', width: { idle: 800 }, height: { idle: 450 } },
+      video: { facingMode: 'user', width: { ideal: 800 }, height: { min: 600 } },
       audio: false
     }
   }
@@ -34,7 +34,7 @@ class App extends Component {
     if (isMobile)
       if (facing === 'user') {
         facing = 'environment'
-        this.setState({ constraints: { audio: false, video: { facingMode: 'environment', width: { idle: 800 }, height: { idle: 450 } } } }, () => {
+        this.constraints({ constraints: { audio: false, video: { facingMode: 'environment', width: { ideal: 800 }, height: { ideal: 450 } } } }, () => {
           this.buttonTurn.click();
           this.buttonTurn.click();
         });
@@ -42,7 +42,7 @@ class App extends Component {
       }
       else {
         facing = 'user'
-        this.setState({ constraints: { audio: false, video: { facingMode: "user", width: { idle: 450 }, height: { idle: 800 } } } }, () => {
+        this.constraints({ constraints: { audio: false, video: { facingMode: "user", width: { ideal: 800 }, height: { ideal: 450 } } } }, () => {
           this.buttonTurn.click();
           this.buttonTurn.click();
         });
