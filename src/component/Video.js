@@ -16,8 +16,8 @@ const init = () => {
     canvasHeight = 450;
     console.log('Mobile Mode')
   } else {
-    canvasWidth = 800;
-    canvasHeight = 450;
+    canvasWidth = 500;
+    canvasHeight = 400;
   }
   imageWidth = 800
   imageHeight = 450
@@ -28,7 +28,6 @@ class Video extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imgSrc: '',
     };
   }
 
@@ -41,7 +40,6 @@ class Video extends Component {
     dx = this.videoCanvas.width / 2 - imageWidth / 2;
     dy = this.videoCanvas.height / 2 - imageHeight / 2;
     this.getVideoStream();
-    
     this.drawVideoToCanvas();
     this.photoCanvas = document.getElementById('photoCanvas');
     this.slider = document.getElementById('slider');
@@ -67,19 +65,16 @@ class Video extends Component {
     } catch (e) {
       alert(e);
     }
-    this.video.srcObject.getVideoTracks().forEach((item)=>{
-      alert(item.getSettings().deviceId)
-      alert(item.getSettings().aspectRatio)
-      alert(item.getSettings().width )
-      alert(item.getSettings().height  )
- 
+    this.video.srcObject.getVideoTracks().forEach((item) => {
+      console.log(item.getSettings().deviceId)
+      console.log(item.getSettings().aspectRatio)
+      console.log(item.getSettings().width)
+      console.log(item.getSettings().height)
     })
   }
 
   drawVideoToCanvas = () => {
     let ctx = this.videoCanvas.getContext('2d')
-
-
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     ctx.save()
     ctx.translate(dx, dy)
@@ -115,14 +110,12 @@ class Video extends Component {
   takePhoto = () => {
     this.photoCanvas.width = canvasWidth
     this.photoCanvas.height = canvasHeight
-    this.setState({ imgSrc: this.videoCanvas.toDataURL() })
     this.drawPhoto()
     document.getElementById('savePhoto').style = { display: '' };
   }
 
   drawPhoto = () => {
     const ctx = this.photoCanvas.getContext('2d');
-
     let img = new Image()
     img.onload = () => {
       ctx.filter = this.props.filterStyle.blur + " " + this.props.filterStyle.grayscale + " " + this.props.filterStyle.brightness + " " + this.props.filterStyle.contrast;
@@ -132,7 +125,6 @@ class Video extends Component {
         ctx.scale(-1, 1)
       ctx.translate(-ctx.canvas.width, 0)
       ctx.drawImage(img, 0, 0);
-
     }
     img.src = this.videoCanvas.toDataURL();
   }
