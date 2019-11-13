@@ -65,12 +65,6 @@ class Video extends Component {
     } catch (e) {
       alert(e);
     }
-    this.video.srcObject.getVideoTracks().forEach((item) => {
-      console.log(item.getSettings().deviceId)
-      console.log(item.getSettings().aspectRatio)
-      console.log(item.getSettings().width)
-      console.log(item.getSettings().height)
-    })
   }
 
   drawVideoToCanvas = () => {
@@ -119,11 +113,12 @@ class Video extends Component {
     let img = new Image()
     img.onload = () => {
       ctx.filter = this.props.filterStyle.blur + " " + this.props.filterStyle.grayscale + " " + this.props.filterStyle.brightness + " " + this.props.filterStyle.contrast;
-      if (global.constraints.video.facingMode === 'environment')
+      if (global.constraints.video.facingMode === 'environment') {
         ctx.scale(1, 1);
-      else
+      }else {
         ctx.scale(-1, 1)
-      ctx.translate(-ctx.canvas.width, 0)
+        ctx.translate(-ctx.canvas.width, 0)
+      }
       ctx.drawImage(img, 0, 0);
     }
     img.src = this.videoCanvas.toDataURL();

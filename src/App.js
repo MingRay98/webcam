@@ -33,14 +33,14 @@ class App extends Component {
     if (isMobile)
       if (facing === 'user') {
         facing = 'environment'
-        global.constraints = { constraints: { audio: false, video: { facingMode: 'environment', width: { ideal: 800 }, height: { ideal: 600 } } } }
+        global.constraints =  { audio: false, video: { facingMode: 'environment', width: { ideal: 800 }, height: { ideal: 600 } } } 
         this.buttonTurn.click();
         this.buttonTurn.click();
         document.getElementById('videoCanvas').className = ''
       }
       else {
         facing = 'user'
-        global.constraints = { constraints: { audio: false, video: { facingMode: "user", width: { ideal: 800 }, height: { ideal: 600 } } } }
+        global.constraints =  { audio: false, video: { facingMode: "user", width: { ideal: 800 }, height: { ideal: 600 } } } 
         this.buttonTurn.click();
         this.buttonTurn.click();
         document.getElementById('videoCanvas').className = 'Stream'
