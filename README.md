@@ -1,3 +1,5 @@
+> **Archived project.** This project is no longer maintained or updated. The public demo has been retired.
+
 # 2019 webcam tranning project 
 
 ## About
